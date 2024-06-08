@@ -114,6 +114,7 @@ function clearInputs(inputs) {
     usersMailData.push(data);
     localStorage.setItem("usersData", JSON.stringify(usersMailData));
     clearInputs([userName, userEmail, userPassword, userRePassword]);
+    toggle(container, "sign-in", "sign-up");
   }
 })();
 
