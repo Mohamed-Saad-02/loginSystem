@@ -187,10 +187,18 @@ function clearInputs(inputs) {
     userPassword = document.getElementById("userResisterPassword"),
     message = document.getElementById("resetMessage"),
     modal = document.getElementById("modal"),
+    generate = document.getElementById("generate-newPassword"),
     closeModal = document.getElementById("closeModal"),
     resetBtn = document.getElementById("reset");
 
   closeModal.addEventListener("click", () => removeClassName(modal, "active"));
+
+  generate.addEventListener("click", () => {
+    const passwordGenerator = generatePassword();
+
+    userPassword.value = passwordGenerator;
+    validate(userPassword, passwordRegex);
+  });
 
   userEmail.addEventListener("input", (e) => {
     if (message.classList.contains("active"))
@@ -201,7 +209,14 @@ function clearInputs(inputs) {
         removeClassName(e.target, "is-invalid");
     }
   });
+
   userPassword.addEventListener("input", (e) => {
+    const isValid = validate(e.target, passwordRegex);
+
+    if (!isValid)
+      if (!generate.classList.contains("active"))
+        generate.classList.add("active");
+
     if (message.classList.contains("active"))
       removeClassName(message, "active");
 
